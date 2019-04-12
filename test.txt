@@ -1,0 +1,79 @@
+<?php echo "Lalalala" ?>
+
+
+/// <container name="@FrontPage">
+/// Welcome to the online documentation for Sitemagic Framework and CMS.
+/// 
+/// Please select a class or an example section in the menu on your left.
+/// For more information about Sitemagic CMS, please refer to our website.
+/// 
+/// http://sitemagic.org
+/// </container>
+
+
+
+/// <container name="Person"> Represents person in our object model </container>
+
+/// <member container="Person" name="_name" type="string" access="private"> Internal variable - Person's name </member>
+/// <member container="Person" name="_age" type="integer" access="private"> Internal variable - Person's age </member>
+/// <member container="Person" name="_gender" type="string" access="private"> Internal variable - Person's gender </member>
+
+/// <member container="Person" name="Name" type="string" access="public"> Property - Person's name </member>
+/// <member container="Person" name="Age" type="integer" access="public"> Property - Person's age </member>
+/// <member container="Person" name="Gender" type="string" access="public"> Property - Person's gender </member>
+
+/// <function container="Person" name="GetPerson" access="public" static="true" returntype="Person">
+/// 	<description> Fetch person by name </description>
+/// 	<param name="Name" type="string"> Enter name of person </param>
+/// </function>
+
+/// <function container="Person" name="IncrementAge" access="public">
+/// 	<description> Increment person's age by one </description>
+/// </function>
+
+
+
+/// <container name="Car" />
+
+/// <member container="Car" name="Brand" type="string" access="public"> Brand (e.g. Ford or Hyundai) </member>
+/// <member container="Car" name="MaxSpeed" type="integer" access="public"> Maximum speed (km/h) </member>
+/// <member container="Car" name="Color" type="string" access="public"> Car's color </member>
+
+/// <function container="Car" name="__construct" access="public">
+/// 	<description> Construct a new car </description>
+/// 	<param default="null" name="brand" type="string"> See description for member Brand </param>
+/// 	<param name="maxSpeed" type="string"> See description for member MaxSpeed </param>
+/// 	<param name="color" type="string" default="red"> See description for member Color </param>
+/// </function>
+
+/// <function container="Car" name="StartEngine" access="public" returntype="boolean">
+/// 	<description> Starts engine - engine sound is on. Returns True on success, otherwise False. </description>
+/// </function>
+
+/// <function container="Car" name="StopEngine" access="public" returntype="boolean">
+/// 	<description> Stops engine - engine sound is off. Returns True on success, otherwise False. </description>
+/// </function>
+
+/// <function container="Car" name="Drive" access="public" returntype="boolean">
+/// 	<description> Drive car. Returns True on success, otherwise False. </description>
+/// 	<param name="direction" type="Direction"> Specify direction </param>
+/// 	<param name="speed" type="string"> Specify car's speed (km/h) </param>
+/// 	<param name="duration" type="integer"> Specify number of seconds to drive </param>
+/// </function>
+
+
+
+/// <container name="Direction"> Enum </container>
+/// <member container="Direction" name="Left" />
+/// <member container="Direction" name="Right" />
+/// <member container="Direction" name="Up" />
+/// <member container="Direction" name="Down" />
+
+
+
+/// <function name="DumpMemoryUsage">
+/// 	<description>
+/// 		Dump memory usage to screen
+/// 		- "nice"
+/// 	</description>
+/// </function>
