@@ -122,7 +122,7 @@ namespace SimpleDocs
 				
 				string container = "";
 				
-				if (getAttributeValue(functions[i].Attributes["container"] != "")
+				if (getAttributeValue(functions[i].Attributes["container"]) != "")
 					container = getAttributeValue(functions[i].Attributes["container"]);
 				else if (functions[i].ParentNode != null && functions[i].ParentNode.Name == "container" && getAttributeValue(functions[i].ParentNode.Attributes["name"]) != "")
 					container = getAttributeValue(functions[i].ParentNode.Attributes["name"]);
