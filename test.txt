@@ -12,6 +12,28 @@
 
 
 
+#   New way to describe types, introduced september 2020.
+#   We can not add members and functions within containers.
+#   This construct allow members and functions to be defined
+#   without the container attribute, as this information can
+#   now be determined by the parent relation.
+#   This is useful to describe types without having actual code.
+/// <container name="Animal">
+/// 	<description> Represents an animal </description>
+/// 	<member name="Name" type="string" access="public"> Property - Animal name </member>
+/// 	<member name="Gender" type="string" access="public"> Property - Animal gender </member>
+/// 	<member name="_name" type="string" access="private"> Internal variable - Animal name </member>
+/// 	<member name="_gender" type="string" access="private"> Internal variable - Animal gender </member>
+/// 	<function name="GetNumberOfLegs" access="public" returns="integer">
+/// 		<description> Get number of legs </description>
+/// 	</function>
+/// 	<function name="_walkWround" access="private">
+/// 		<description> Make animal walk around casually </description>
+/// 	</function>
+/// </container>
+
+
+
 /// <container name="Person"> Represents person in our object model </container>
 
 /// <member container="Person" name="_name" type="string" access="private"> Internal variable - Person's name </member>

@@ -50,7 +50,7 @@ namespace SimpleDocs
 					continue;
 				
 				con = new Container(getAttributeValue(containers[i].Attributes["name"]));
-				con.Description = getNodeText(containers[i]);
+				con.Description = getNodeText(containers[i].FirstChild != null && containers[i].FirstChild.Name == "description" ? containers[i].FirstChild : containers[i]);
 				con.Extends = getAttributeValue(containers[i].Attributes["extends"]);
 				
 				elements.Add(con);
@@ -72,12 +72,21 @@ namespace SimpleDocs
 				if (includePrivate == false && members[i].Attributes["access"] != null && getAttributeValue(members[i].Attributes["access"]).ToLower() == "private")
 					continue;
 				
+				string container = "";
+				
+				if (getAttributeValue(members[i].Attributes["container"]) != "")
+					container = getAttributeValue(members[i].Attributes["container"]);
+				else if (members[i].ParentNode != null && members[i].ParentNode.Name == "container" && getAttributeValue(members[i].ParentNode.Attributes["name"]) != "")
+					container = getAttributeValue(members[i].ParentNode.Attributes["name"]);
+				else
+					container = "@GlobalScope";
+				
 				mem = new Member(getAttributeValue(members[i].Attributes["name"]));
-				mem.Container = (getAttributeValue(members[i].Attributes["container"]) != "" ? getAttributeValue(members[i].Attributes["container"]) : "@GlobalScope");
+				mem.Container = container;
 				mem.Access = getAttributeValue(members[i].Attributes["access"]);
 				mem.Type = getAttributeValue(members[i].Attributes["type"]);
 				mem.Default = getAttributeValue(members[i].Attributes["default"]);
-                mem.Nullable = (getAttributeValue(members[i].Attributes["nullable"]).ToLower() == "true");
+				mem.Nullable = (getAttributeValue(members[i].Attributes["nullable"]).ToLower() == "true");
 				mem.Static = (getAttributeValue(members[i].Attributes["static"]).ToLower() == "true");
 				mem.Description = getNodeText(members[i]);
 				
@@ -91,7 +100,7 @@ namespace SimpleDocs
 					if (con.Name == "@GlobalScope")
 						con.Description = "@GlobalScope is a special container listing members and functions not associated with any specific container - they are most likely globally available.";
 					
-				    elements.Add(con);
+					elements.Add(con);
 				}
 			}
 			
@@ -111,8 +120,17 @@ namespace SimpleDocs
 				if (includePrivate == false && functions[i].Attributes["access"] != null && getAttributeValue(functions[i].Attributes["access"]).ToLower() == "private")
 					continue;
 				
-				func = new Function(functions[i].Attributes["name"].Value);
-				func.Container = (getAttributeValue(functions[i].Attributes["container"]) != "" ? getAttributeValue(functions[i].Attributes["container"]) : "@GlobalScope");
+				string container = "";
+				
+				if (getAttributeValue(functions[i].Attributes["container"] != "")
+					container = getAttributeValue(functions[i].Attributes["container"]);
+				else if (functions[i].ParentNode != null && functions[i].ParentNode.Name == "container" && getAttributeValue(functions[i].ParentNode.Attributes["name"]) != "")
+					container = getAttributeValue(functions[i].ParentNode.Attributes["name"]);
+				else
+					container = "@GlobalScope";
+				
+				func = new Function(getAttributeValue(functions[i].Attributes["name"]));
+				func.Container = container;
 				func.Access = getAttributeValue(functions[i].Attributes["access"]);
 				func.Returns = getAttributeValue(functions[i].Attributes["returns"]);
 				func.Static = (getAttributeValue(functions[i].Attributes["static"]).ToLower() == "true");
@@ -130,7 +148,7 @@ namespace SimpleDocs
 					parm.Type = getAttributeValue(parameters[j].Attributes["type"]);
 					parm.Default = getAttributeValue(parameters[j].Attributes["default"]);
 					parm.Description = getNodeText(parameters[j]);
-                    parm.Nullable = (getAttributeValue(parameters[j].Attributes["nullable"]).ToLower() == "true");
+					parm.Nullable = (getAttributeValue(parameters[j].Attributes["nullable"]).ToLower() == "true");
 					
 					func.Parameters.Add(parm);
 				}
@@ -145,7 +163,7 @@ namespace SimpleDocs
 					if (con.Name == "@GlobalScope")
 						con.Description = "@GlobalScope is a special container listing members and functions not associated with any specific container - they are most likely globally available.";
 					
-				    elements.Add(con);
+					elements.Add(con);
 				}
 			}
 			
