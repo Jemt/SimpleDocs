@@ -30,11 +30,17 @@ namespace SimpleDocs
 			TextReader reader = new StreamReader(path + "DocsTemplate.html");
 			string content = reader.ReadToEnd();
 			reader.Close();
-			
+
+			// OLD INSERTION MODE (requires eval(..)) - DEPRECATED, does not support the use of quotes
 			content = content.Replace("{[JSONContainers]}", "[" + cdocs + "]");
 			content = content.Replace("{[JSONMembers]}", "[" + mdocs + "]");
 			content = content.Replace("{[JSONFunctions]}", "[" + fdocs + "]");
-			
+
+			// NEW INSERTION MODE (does not require eval(..))
+			content = content.Replace("/*** Containers ***/", cdocs);
+			content = content.Replace("/*** Members ***/", mdocs);
+			content = content.Replace("/*** Functions ***/", fdocs);
+
 			TextWriter writer = new StreamWriter(docName);
 			writer.Write(content);
 			writer.Close();

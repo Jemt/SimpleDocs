@@ -27,7 +27,11 @@
 /// 	<function name="GetNumberOfLegs" access="public" returns="integer">
 /// 		<description> Get number of legs </description>
 /// 	</function>
-/// 	<function name="_walkWround" access="private">
+/// 	<function name="WalkWround" access="public">
+/// 		<description> Make animal walk around </description>
+/// 	    <param name="walkingMode" type='"Casually"|"Aggressively"|"Sleepy"'> The way to walk around </param>
+/// 	</function>
+/// 	<function name="_walkWroundCasually" access="private">
 /// 		<description> Make animal walk around casually </description>
 /// 	</function>
 /// </container>
