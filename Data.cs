@@ -58,7 +58,7 @@ namespace SimpleDocs
 				throw new Exception("Unable to compare object that is not of type Member");
 			
 			//if (this.Access != ((Member)obj).Access || this.Static != ((Member)obj).Static)
-			if (this.Container == ((Function)obj).Container && this.Access != ((Member)obj).Access || this.Static != ((Member)obj).Static)
+			if (this.Container == ((Member)obj).Container && this.Access != ((Member)obj).Access || this.Static != ((Member)obj).Static)
 			{
 				int thisPoints = Helper.GetSortPoints(this.Access, this.Static);
 				int objPoints = Helper.GetSortPoints(((Member)obj).Access, ((Member)obj).Static);
