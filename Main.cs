@@ -18,6 +18,8 @@ namespace SimpleDocs
 				Console.WriteLine("Optional options:");
 				Console.WriteLine("   FileType=php        Search only specified file type for documentation");
 				Console.WriteLine("   ResultFile=x.html   Name of result file - defaults to SimpleDocs.html");
+				Console.WriteLine("                       for HTML format and SimpleDocs.json for JSON format");
+				Console.WriteLine("   OutputFormat        Output format: HTML (default) or JSON");
 				Console.WriteLine("   Recursively         Search current folder and all sub folders recursively");
 				Console.WriteLine("   IncludePrivate      Include private members and functions in documentation");
 				Console.WriteLine("   Help                Display this help");
@@ -28,10 +30,11 @@ namespace SimpleDocs
 			
 			string dir = System.Environment.CurrentDirectory;
 			string fileType = (getArg(args, "FileType") != null ? getArg(args, "FileType") : "");
-			string filename = (getArg(args, "ResultFile") != null && getArg(args, "ResultFile") != "" ? getArg(args, "ResultFile") : "SimpleDocs.html");
+			string outputFormat = (getArg(args, "OutputFormat") != null && Array.Exists(new string[] { "HTML", "JSON" }, s => s == getArg(args, "OutputFormat").ToUpper()) == true ? getArg(args, "OutputFormat").ToUpper() : "HTML");
+			string filename = (getArg(args, "ResultFile") != null && getArg(args, "ResultFile") != "" ? getArg(args, "ResultFile") : "SimpleDocs." + (outputFormat == "JSON" ? "json" : "html"));
 			bool recursively = (getArg(args, "Recursively") != null && (getArg(args, "Recursively") == "" || getArg(args, "Recursively").ToLower() == "true"));
 			bool includePrivate = (getArg(args, "IncludePrivate") != null && (getArg(args, "IncludePrivate") == "" || getArg(args, "IncludePrivate").ToLower() == "true"));
-			
+
 			string[] files = FileHandler.GetFiles(dir, fileType, recursively);
 			
 			List<Container> containers = new List<Container>();
@@ -62,11 +65,11 @@ namespace SimpleDocs
 			containers.Sort();
 			members.Sort();
 			functions.Sort();
-			
-			Console.WriteLine("Generating documentation");
-			
-			Printer.PrintDocs(containers.ToArray(), members.ToArray(), functions.ToArray(), filename);
-			
+
+			Console.WriteLine("Generating documentation as " + outputFormat + " to " + filename);
+
+			Printer.PrintDocs(containers.ToArray(), members.ToArray(), functions.ToArray(), filename, outputFormat);
+
 			Console.WriteLine("Done - " + filename + " created");
 		}
 		

@@ -24,8 +24,10 @@ namespace SimpleDocs
 		{
 			if ((obj is Container) == false)
 				throw new Exception("Unable to compare object that is not of type Container");
-			
-			return this.Name.CompareTo(((Container)obj).Name);
+
+			//return this.Name.CompareTo(((Container)obj).Name);
+			int res = this.Name.CompareTo(((Container)obj).Name);
+			return (res == 0 ? -1 : res); // Make 'this' preceed 'obj' when they are identical to maintain order of declaration
 		}
 	}
 	
@@ -55,21 +57,24 @@ namespace SimpleDocs
 			if ((obj is Member) == false)
 				throw new Exception("Unable to compare object that is not of type Member");
 			
-			if (this.Access != ((Member)obj).Access || this.Static != ((Member)obj).Static)
+			//if (this.Access != ((Member)obj).Access || this.Static != ((Member)obj).Static)
+			if (this.Container == ((Function)obj).Container && this.Access != ((Member)obj).Access || this.Static != ((Member)obj).Static)
 			{
 				int thisPoints = Helper.GetSortPoints(this.Access, this.Static);
 				int objPoints = Helper.GetSortPoints(((Member)obj).Access, ((Member)obj).Static);
-				
+
 				if (thisPoints > objPoints)
 					return -1;
 				else if (thisPoints < objPoints)
 					return 1;
 				else
-					return 0;
+					return -1; // Make 'this' preceed 'obj' when they are identical to maintain order of declaration //return 0;
 			}
 			else
 			{
-				return this.Name.CompareTo(((Member)obj).Name);
+				//return this.Name.CompareTo(((Member)obj).Name);
+				int res = (this.Container + this.Name).CompareTo(((Member)obj).Container + ((Member)obj).Name);
+				return (res == 0 ? -1 : res); // Make 'this' preceed 'obj' when they are identical to maintain order of declaration
 			}
 		}
 	}
@@ -104,22 +109,25 @@ namespace SimpleDocs
 		{
 			if ((obj is Function) == false)
 				throw new Exception("Unable to compare object that is not of type Function");
-			
-			if (this.Access != ((Function)obj).Access || this.Static != ((Function)obj).Static)
+
+			//if (this.Access != ((Function)obj).Access || this.Static != ((Function)obj).Static)
+			if (this.Container == ((Function)obj).Container && this.Access != ((Function)obj).Access || this.Static != ((Function)obj).Static)
 			{
 				int thisPoints = Helper.GetSortPoints(this.Access, this.Static);
 				int objPoints = Helper.GetSortPoints(((Function)obj).Access, ((Function)obj).Static);
-				
+
 				if (thisPoints > objPoints)
 					return -1;
 				else if (thisPoints < objPoints)
 					return 1;
 				else
-					return 0;
+					return -1; // Make 'this' preceed 'obj' when they are identical to maintain order of declaration //return 0;
 			}
 			else
 			{
-				return this.Name.CompareTo(((Function)obj).Name);
+				//return this.Name.CompareTo(((Function)obj).Name);
+				int res = (this.Container + this.Name).CompareTo(((Function)obj).Container + ((Function)obj).Name);
+				return (res == 0 ? -1 : res); // Make 'this' preceed 'obj' when they are identical to maintain order of declaration
 			}
 		}
 	}
