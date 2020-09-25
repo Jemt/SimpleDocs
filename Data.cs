@@ -17,7 +17,7 @@ namespace SimpleDocs
 		
 		public override string ToString()
 		{
-			return "{ Name : '" + this.Name + "', Description : '" + Helper.Encode(this.Description) + "', Extends : '" + this.Extends + "' }";
+			return "{ \"Name\" : \"" + this.Name + "\", \"Description\" : \"" + Helper.Encode(this.Description) + "\", \"Extends\" : \"" + this.Extends + "\" }";
 		}
 		
 		public int CompareTo(object obj)
@@ -49,7 +49,7 @@ namespace SimpleDocs
 		
 		public override string ToString()
 		{
-            return "{ Container : '" + this.Container + "', Access : '" + this.Access + "', Name : '" + this.Name + "', Type : '" + this.Type + "', Default : '" + Helper.Encode(this.Default) + "', Nullable : " + (this.Nullable ? "true" : "false") + ", Static : " + (this.Static ? "true" : "false") + ", Description : '" + Helper.Encode(this.Description) + "' }";
+			return "{ \"Container\" : \"" + this.Container + "\", \"Access\" : \"" + this.Access + "\", \"Name\" : \"" + this.Name + "\", \"Type\" : \"" + this.Type + "\", \"Default\" : \"" + Helper.Encode(this.Default) + "\", \"Nullable\" : " + (this.Nullable ? "true" : "false") + ", \"Static\" : " + (this.Static ? "true" : "false") + ", \"Description\" : \"" + Helper.Encode(this.Description) + "\" }";
 		}
 		
 		public int CompareTo(object obj)
@@ -102,7 +102,7 @@ namespace SimpleDocs
 			foreach (Parameter p in this.Parameters)
 				parms += (parms != "" ? ", " : "") + p.ToString();
 			
-			return "{ Container : '" + this.Container + "', Name : '" + this.Name + "', Returns : '" + this.Returns + "', Access : '" + this.Access + "', Description : '" + Helper.Encode(this.Description) + "', Static : " + (this.Static ? "true" : "false") + ", Virtual : " + (this.Virtual ? "true" : "false") + ", Parameters : [" + parms + "] }";
+			return "{ \"Container\" : \"" + this.Container + "\", \"Name\" : \"" + this.Name + "\", \"Returns\" : \"" + Helper.Encode(this.Returns) + "\", \"Access\" : \"" + this.Access + "\", \"Description\" : \"" + Helper.Encode(this.Description) + "\", \"Static\" : " + (this.Static ? "true" : "false") + ", \"Virtual\" : " + (this.Virtual ? "true" : "false") + ", \"Parameters\" : [" + parms + "] }";
 		}
 		
 		public int CompareTo(object obj)
@@ -147,7 +147,7 @@ namespace SimpleDocs
 		
 		public override string ToString()
 		{
-            return "{ Name : '" + this.Name + "', Type : '" + this.Type + "', Default : '" + Helper.Encode(this.Default) + "', Nullable: " + (this.Nullable ? "true" : "false") + ", Description : '" + Helper.Encode(this.Description) + "' }";
+			return "{ \"Name\" : \"" + this.Name + "\", \"Type\" : \"" + Helper.Encode(this.Type) + "\", \"Default\" : \"" + Helper.Encode(this.Default) + "\", \"Nullable\" : " + (this.Nullable ? "true" : "false") + ", \"Description\" : \"" + Helper.Encode(this.Description) + "\" }";
 		}
 	}
 	
@@ -187,10 +187,10 @@ namespace SimpleDocs
 		
 		public static string Encode(string s)
 		{
-			s = HttpUtility.HtmlEncode(s);
-			s = s.Replace("'", "\\\\'");
-			s = s.Replace("\r", "").Replace("\n", "<br>");
-			
+			s = s.Replace("\"", "\\\"");
+			s = s.Replace("\r", "").Replace("\n", "\\n");
+			//s = s.Replace("\t", "    ");
+
 			return s;
 		}
 	}
