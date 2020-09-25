@@ -29,8 +29,8 @@ namespace SimpleDocs
 				TextWriter tw = new StreamWriter(docName);
 				tw.WriteLine("{");
 				tw.WriteLine("\t\"Containers\":\n\t[\n" + cdocs + "\n\t],");
-				tw.WriteLine("\t\"tMembers\": [\n\t" + mdocs + "\n\t],");
-				tw.WriteLine("\t\"Functions\": [\n\t" + fdocs + "\n\t]");
+				tw.WriteLine("\t\"Members\":\n\t[\n" + mdocs + "\n\t],");
+				tw.WriteLine("\t\"Functions\":\n\t[\n" + fdocs + "\n\t]");
 				tw.WriteLine("}");
 				tw.Close();
 			}
