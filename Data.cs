@@ -25,9 +25,7 @@ namespace SimpleDocs
 			if ((obj is Container) == false)
 				throw new Exception("Unable to compare object that is not of type Container");
 
-			//return this.Name.CompareTo(((Container)obj).Name);
-			int res = this.Name.CompareTo(((Container)obj).Name);
-			return (res == 0 ? -1 : res); // Make 'this' preceed 'obj' when they are identical to maintain order of declaration
+			return this.Name.CompareTo(((Container)obj).Name);
 		}
 	}
 	
@@ -57,7 +55,6 @@ namespace SimpleDocs
 			if ((obj is Member) == false)
 				throw new Exception("Unable to compare object that is not of type Member");
 			
-			//if (this.Access != ((Member)obj).Access || this.Static != ((Member)obj).Static)
 			if (this.Container == ((Member)obj).Container && this.Access != ((Member)obj).Access || this.Static != ((Member)obj).Static)
 			{
 				int thisPoints = Helper.GetSortPoints(this.Access, this.Static);
@@ -68,13 +65,11 @@ namespace SimpleDocs
 				else if (thisPoints < objPoints)
 					return 1;
 				else
-					return -1; // Make 'this' preceed 'obj' when they are identical to maintain order of declaration //return 0;
+					return 0;
 			}
 			else
 			{
-				//return this.Name.CompareTo(((Member)obj).Name);
-				int res = (this.Container + this.Name).CompareTo(((Member)obj).Container + ((Member)obj).Name);
-				return (res == 0 ? -1 : res); // Make 'this' preceed 'obj' when they are identical to maintain order of declaration
+				return (this.Container + this.Name).CompareTo(((Member)obj).Container + ((Member)obj).Name);
 			}
 		}
 	}
@@ -89,6 +84,7 @@ namespace SimpleDocs
 		public bool Static = false;
 		public bool Virtual = false;
 		public List<Parameter> Parameters = new List<Parameter>();
+		public int SortSequence = 0;
 		
 		public Function(string name)
 		{
@@ -110,7 +106,6 @@ namespace SimpleDocs
 			if ((obj is Function) == false)
 				throw new Exception("Unable to compare object that is not of type Function");
 
-			//if (this.Access != ((Function)obj).Access || this.Static != ((Function)obj).Static)
 			if (this.Container == ((Function)obj).Container && this.Access != ((Function)obj).Access || this.Static != ((Function)obj).Static)
 			{
 				int thisPoints = Helper.GetSortPoints(this.Access, this.Static);
@@ -121,13 +116,11 @@ namespace SimpleDocs
 				else if (thisPoints < objPoints)
 					return 1;
 				else
-					return -1; // Make 'this' preceed 'obj' when they are identical to maintain order of declaration //return 0;
+					return 0;
 			}
 			else
 			{
-				//return this.Name.CompareTo(((Function)obj).Name);
-				int res = (this.Container + this.Name).CompareTo(((Function)obj).Container + ((Function)obj).Name);
-				return (res == 0 ? -1 : res); // Make 'this' preceed 'obj' when they are identical to maintain order of declaration
+				return (this.Container + this.Name + Helper.GetSortSequence(this.SortSequence)).CompareTo(((Function)obj).Container + ((Function)obj).Name + Helper.GetSortSequence(((Function)obj).SortSequence));
 			}
 		}
 	}
@@ -184,7 +177,19 @@ namespace SimpleDocs
 			
 			return -1;
 		}
-		
+
+		public static string GetSortSequence(int sortSequence) // Returns e.g. 0000003647 if SortSequence is 3647
+		{
+			string seq = sortSequence.ToString();
+
+			while (seq.Length < 10)
+			{
+				seq = "0" + seq;
+			}
+
+			return seq;
+		}
+
 		public static string Encode(string s)
 		{
 			s = s.Replace("\"", "\\\"");

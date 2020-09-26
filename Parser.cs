@@ -136,6 +136,7 @@ namespace SimpleDocs
 				func.Static = (getAttributeValue(functions[i].Attributes["static"]).ToLower() == "true");
 				func.Virtual = (getAttributeValue(functions[i].Attributes["virtual"]).ToLower() == "true");
 				func.Description = getElementText(functions[i]["description"]);
+				func.SortSequence = i;
 				
 				parameters = ((XmlElement)functions[i]).GetElementsByTagName("param");
 				
