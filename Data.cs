@@ -47,7 +47,7 @@ namespace SimpleDocs
 		
 		public override string ToString()
 		{
-			return "{ \"Container\" : \"" + this.Container + "\", \"Access\" : \"" + this.Access + "\", \"Name\" : \"" + this.Name + "\", \"Type\" : \"" + this.Type + "\", \"Default\" : \"" + Helper.Encode(this.Default) + "\", \"Nullable\" : " + (this.Nullable ? "true" : "false") + ", \"Static\" : " + (this.Static ? "true" : "false") + ", \"Description\" : \"" + Helper.Encode(this.Description) + "\" }";
+			return "{ \"Container\" : \"" + this.Container + "\", \"Access\" : \"" + this.Access + "\", \"Name\" : \"" + this.Name + "\", \"Type\" : \"" + Helper.Encode(this.Type) + "\", \"Default\" : \"" + Helper.Encode(this.Default) + "\", \"Nullable\" : " + (this.Nullable ? "true" : "false") + ", \"Static\" : " + (this.Static ? "true" : "false") + ", \"Description\" : \"" + Helper.Encode(this.Description) + "\" }";
 		}
 		
 		public int CompareTo(object obj)
